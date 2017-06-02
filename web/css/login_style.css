@@ -1,0 +1,62 @@
+<style>
+
+form {
+    border: 3px solid #f1f1f1;
+    background-color: #D3D3D3;
+}
+
+h1 {
+    font-family: sans-serif;
+    font-size: 200%;
+    color: blue;
+    padding-bottom: 0px;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+select {
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type=button], input[type=reset], input[type=submit] {
+    background-color: royalblue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 49%;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 35%;
+}
+
+.container {
+    padding-top: 2px;
+    padding-left: 260px;
+    padding-right: 260px;
+    font-family: sans-serif;
+}
+
+span.password {
+    float: right;
+    padding-top: 16px;
+}
+</style>
