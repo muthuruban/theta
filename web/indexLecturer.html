@@ -36,10 +36,10 @@ function Login()
 		{
 			if ( xmlhttp.responseText.startsWith ( 'OK`' ) )
 			{
-				var studentName = xmlhttp.responseText.substring ( 3 )
-				alert ( 'Welcome, ' + studentName + '!' )
+				var lecturerName = xmlhttp.responseText.substring ( 3 )
+				alert ( 'Welcome, ' + lecturerName + '!' )
 				
-				location.href = 'main.php'
+				location.href = 'lecturerMain.php'
 			}
 			else if ( xmlhttp.responseText === 'Invalid' )
 				alert ( 'Invalid username and/or password!' )
@@ -48,7 +48,7 @@ function Login()
 		}
 	}
 	
-	xmlhttp.open ( 'POST', 'ajax_performLogin.php', true )
+	xmlhttp.open ( 'POST', 'ajax_performLoginLecturer.php', true )
 	xmlhttp.setRequestHeader ( 'Content-type', 'application/x-www-form-urlencoded' )
 	xmlhttp.send ( 'username=' + username + '&password=' + password )
 }
@@ -56,7 +56,7 @@ function Login()
 </head>
 <body>
 <link rel='stylesheet' href='css/login_style.css'>
-<h1>Student Sign In</h1>
+<h1>Lecturer Sign In</h1>
 <form>
   <div class='imgcontainer'>
     <img src='http://www.coventrypride.org.uk/wp-content/uploads/2016/04/Coventry_University_logo.svg_.png' alt='avatar' class='avatar' />
@@ -73,7 +73,7 @@ function Login()
   </div>
 
   <div class='container' style='background-color:#f1f1f1'>
-  <a href='forgotPassword.html'>Forgot Password</a>
+  <a href='forgotPasswordLecturer.html'>Forgot Password</a>
   </div>
 </form>
 </body>
