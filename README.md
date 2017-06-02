@@ -1,5 +1,6 @@
 # theta
-Study Support Services
+# Study Support Services
+
 This app is an extension of the barebones application provided together with the University of Coventry 302CEM 2017 coursework assignment.
 
 Additional features for students include the ability to view and download resource files as well as to book one-to-one appointments based on lecturer availability.
