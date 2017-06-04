@@ -1,6 +1,7 @@
 <?php
     function OpenDatabase()
     {
+        // database credentials
         $dbhost = 'ec2-54-225-68-71.compute-1.amazonaws.com';
         $dbname = 'd3ar7t8tetdrcf';
         $dbuser = 'dsopbqzhyxbsde';
