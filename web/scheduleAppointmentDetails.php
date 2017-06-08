@@ -36,36 +36,6 @@
 <head>
 <title>Study Support Services</title>
 <script type='text/javascript'>
-/*
-function Next()
-{
-	var contactNumber = document.getElementById('contactNumber').value
-	if ( !VerifyText ( contactNumber, 'contact number' ) ) return
-
-	var contactEmail = document.getElementById('contactEmail').value
-	if ( !VerifyText ( contactEmail, 'contact e-mail' ) ) return
-
-	var universityNumber = document.getElementById('universityNumber').value
-	if ( !VerifyText ( universityNumber, 'university number' ) ) return
-
-    var numberOfAttendeesEl = document.getElementById('numberOfAttendees')
-	var numberOfAttendees = numberOfAttendeesEl.options [ numberOfAttendeesEl.selectedIndex ].value
-
-	var degreeCourseName = document.getElementById('degreeCourseName').value
-	if ( !VerifyText ( degreeCourseName, 'degree course name' ) ) return
-
-	var qualificationStudiedFor = document.getElementById('qualificationStudiedFor').value
-	if ( !VerifyText ( qualificationStudiedFor, 'qualification studied for' ) ) return
-
-    var yearOfStudyEl = document.getElementById('yearOfStudy')
-	var yearOfStudy = yearOfStudyEl.options [ yearOfStudyEl.selectedIndex ].value
-
-	var topic = document.getElementById('topic').value
-	if ( !VerifyText ( topic, 'topic' ) ) return
-
-	location.href = 'scheduleVerification.php?subject=<?php $subject; ?>&supportID=<?php echo $supportID; ?>&hour=<?php echo $hour; ?>&contactNumber=' + contactNumber + '&contactEmail=' + contactEmail + '&universityNumber=' + universityNumber + '&numberOfAttendees=' + numberOfAttendees + '&degreeCourseName=' + degreeCourseName + '&qualificationStudiedFor= ' + qualificationStudiedFor + '&yearOfStudy=' + yearOfStudy + '&topic=' + topic
-}
-*/
 function Back()
 {
 	location.href = 'scheduleAppointmentTime.php?subject=<?php echo $subject; ?>&supportID=<?php echo $supportID; ?>'
@@ -84,21 +54,36 @@ function Back()
     <table width='100%'>
     <tr>
     <?php
-        echo "<td width='10%'>";
-        echo ( $subject === 'Theta' ) ? "<a>Theta</a>" : "<a href='scheduleOneToOneAppointments.php?subject=Theta'>Theta</a>";
-        echo "</td>\n";
-    
-        echo "<td width='10%'>";
-        echo ( $subject === 'Maths' ) ? "<a>Maths</a>" : "<a href='scheduleOneToOneAppointments.php?subject=Maths'>Maths</a>";
-        echo "</td>\n";
-    
-        echo "<td width='20%'>";
-        echo ( $subject === 'Programming' ) ? "<a>Programming Support</a>" : "<a href='scheduleOneToOneAppointments.php?subject=Programming'>Programming Support</a>";
-        echo "</td>\n";
-    ?>
-        <td width='20%'>&nbsp;</td>
-        <td width='20%'><a href='viewAppointments.php'>View Appointments</a></td>
-        <td width='20%'><a href='logout.php'>Logout</a></td>
+	require_once ( 'database.php' );
+
+	$connection = OpenDatabase();
+	
+	$result = QueryDatabase ( $connection, 'SELECT "Subject Name" FROM "Subjects"' );
+	
+	$numSubjects = GetNumRows ( $result );
+	
+	$width = 100 / ( $numSubjects + 3 );
+	
+	for ( $subjectIndex = 0; $subjectIndex < $numSubjects; ++$subjectIndex )
+	{
+		$subjectName = ReadField ( $result, $subjectIndex, 'Subject Name' );
+		
+		echo "<td width='$width%'>";
+
+		if ( $subjectName === $subject )
+			echo "<a>$subjectName</a>";
+		else
+			echo "<a href='scheduleOneToOneAppointments.php?subject=$subjectName'>$subjectName</a>";
+
+		echo "</td>\n";
+	}
+	
+	CloseDatabase ( $connection );
+
+	echo "<td width='$width%'>&nbsp;</td>\n";
+	echo "<td width='$width%'><a href='viewAppointments.php'>View Appointments</a></td>\n";
+	echo "<td width='$width%'><a href='logout.php'>Logout</a></td>\n";
+	?>
     </tr>
     </table>
     </div>
