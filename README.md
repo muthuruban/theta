@@ -4,6 +4,7 @@
 This app is an extension of the barebones application provided together with the University of Coventry 302CEM 2017 coursework assignment.
 
 The app can be directly accessed from Heroku at the following URLS:
+
 https://theta-web.herokuapp.com/ (for students)
 https://theta-web.herokuapp.com/indexLecturer.html (for lecturers)
 
