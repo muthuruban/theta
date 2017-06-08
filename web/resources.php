@@ -36,21 +36,36 @@
 <table width='100%'>
 <tr>
 <?php
-	echo "<td width='10%'>";
-	echo ( $subject === 'Theta' ) ? "<a>Theta</a>" : "<a href='worksheetsAndTests.php?subject=Theta'>Theta</a>";
-	echo "</td>\n";
+	require_once ( 'database.php' );
 
-	echo "<td width='10%'>";
-	echo ( $subject === 'Maths' ) ? "<a>Maths</a>" : "<a href='worksheetsAndTests.php?subject=Maths'>Maths</a>";
-	echo "</td>\n";
+	$connection = OpenDatabase();
+	
+	$result = QueryDatabase ( $connection, 'SELECT "Subject Name" FROM "Subjects"' );
+	
+	$numSubjects = GetNumRows ( $result );
+	
+	$width = 100 / ( $numSubjects + 3 );
+	
+	for ( $subjectIndex = 0; $subjectIndex < $numSubjects; ++$subjectIndex )
+	{
+		$subjectName = ReadField ( $result, $subjectIndex, 'Subject Name' );
+		
+		echo "<td width='$width%'>";
 
-	echo "<td width='20%'>";
-	echo ( $subject === 'Programming' ) ? "<a>Programming Support</a>" : "<a href='worksheetsAndTests.php?subject=Programming'>Programming Support</a>";
-	echo "</td>\n";
+		if ( $subjectName === $subject )
+			echo "<a>$subjectName</a>";
+		else
+			echo "<a href='worksheetsAndTests.php?subject=$subjectName'>$subjectName</a>";
+
+		echo "</td>\n";
+	}
+	
+	CloseDatabase ( $connection );
+
+	echo "<td width='$width%'>&nbsp;</td>\n";
+	echo "<td width='$width%'><a href='viewAppointments.php'>View Appointments</a></td>\n";
+	echo "<td width='$width%'><a href='logout.php'>Logout</a></td>\n";
 ?>
-	<td width='20%'>&nbsp;</td>
-	<td width='20%'><a href='viewAppointments.php'>View Appointments</a></td>
-    <td width='20%'><a href='logout.php'>Logout</a></td>
 </tr>
 </table>
 </div>
@@ -83,7 +98,6 @@ for ( $sheetIndex = 0; $sheetIndex < $numSheets; ++$sheetIndex )
 
     echo "<tr align='center'>\n";
 	echo "    <td><a href='loadResources.php?oid=$resourceOID&sheetNumber=$sheetNumber'>$sheetNumber</a></td>\n";
-	//echo "    <td><a href='$resourceLocation'>$sheetNumber</a></td>\n";
 	echo "    <td>$title</td>\n";
 	echo "</tr>\n";
 }
