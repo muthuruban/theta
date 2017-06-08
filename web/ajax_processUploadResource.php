@@ -1,5 +1,4 @@
 <?php
-$uploadDirectory = 'resourceUploads/';
 $temp = explode ( '.', $_FILES [ 'fileToUpload' ] [ 'name' ] );
 $extension = end ( $temp );
 
@@ -12,17 +11,23 @@ if ( $_FILES [ 'fileToUpload' ] [ 'error' ] > 0 )
 }
 else
 {
-	$resourceFilename = $_FILES [ 'fileToUpload' ] [ 'name' ];
-	$resourcePath = $uploadDirectory . $resourceFilename;
-	move_uploaded_file ( $_FILES [ 'fileToUpload' ] [ 'tmp_name' ], $resourcePath );
-	
 	require_once ( 'database.php' );
 
 	$connection = OpenDatabase();
 
 	QueryDatabase ( $connection, 'BEGIN' );
 
-	$oid = pg_lo_import ( $connection, 'C:\\Program Files (x86)\\PostgreSQL\\EnterpriseDB-ApachePHP\\apache\\www\\theta\\' . $resourcePath );
+	$oid = pg_locreate ( $connection );
+
+	$handle = pg_loopen ( $connection, $oid, 'w' );
+	$fp = fopen (  $_FILES [ 'fileToUpload' ] [ 'tmp_name' ], 'r' );
+
+	while ( !feof ( $fp ) )
+		pg_lowrite ( $handle, fread ( $fp, 4096 ) );
+
+	fclose ( $fp );
+
+	pg_loclose ( $handle );
 
 	QueryDatabase ( $connection, 'COMMIT' );
 
