@@ -8,11 +8,14 @@
 	
     pg_query ( $connection, 'BEGIN' );
 	
-    pg_lo_export ( $connection, $oid, "C:\\Program Files (x86)\\PostgreSQL\\EnterpriseDB-ApachePHP\\apache\\www\\theta\\resources\\${sheetNumber}_$oid.pdf" );
+	$loid = pg_loopen ( $connection, $oid, 'r' );
+
+    header ( 'Content-type: application/pdf' );
+
+    pg_loreadall ( $loid );
+    pg_loclose ( $loid );
 	
     QueryDatabase ( $connection, 'COMMIT' );
 	
 	CloseDatabase ( $connection );
-	
-	header ( "Location:resources/${sheetNumber}_$oid.pdf" );
 ?>
