@@ -6,6 +6,7 @@ This app is an extension of the barebones application provided together with the
 The app can be directly accessed from Heroku at the following URLS:
 
 https://theta-web.herokuapp.com/ (for students)
+
 https://theta-web.herokuapp.com/indexLecturer.html (for lecturers)
 
 Additional features for students include the ability to view and download resource files as well as to book one-to-one appointments based on lecturer availability.
